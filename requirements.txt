@@ -1,0 +1,9 @@
+wheel
+ryu==4.34
+mininet==2.3.0.dev6
+scikit-learn
+matplotlib
+numpy
+pandas
+tinyrpc==0.9.4
+joblib==0.14.1
