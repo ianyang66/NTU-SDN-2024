@@ -4,3 +4,4 @@
 InSDN_DatasetCSV
 *.pyc
 *.pcapng
+__pycache__
