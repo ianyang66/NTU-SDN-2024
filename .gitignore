@@ -1,0 +1,6 @@
+*.pth
+*.sav
+*.h5
+InSDN_DatasetCSV
+*.pyc
+*.pcapng

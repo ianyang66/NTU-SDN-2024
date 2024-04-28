@@ -1,15 +1,23 @@
+'''
+Description: 
+Version: 1.0
+Autor: Ian Yang
+Date: 2024-04-25 15:01:22
+LastEditors: Ian Yang
+LastEditTime: 2024-04-28 20:27:14
+'''
 import http.client
 import time
 import json
 from datetime import datetime
 
 from app.controllers.FeaturesController import FeaturesController
-from app.controllers.SVMController import SVMController
+from app.controllers.MLController import DNNController, GRUController
 from app.controllers.State import State
 from app.model.Data import Data
 from app.model.Flow import Flow
 from app.model.TrafficState import TrafficState
-
+import torch
 """
     DDOSController class.
 """
@@ -28,13 +36,16 @@ class DDoSControllerThread:
     def __init__(self, queue):
         self.queue = queue
         self.features_controller = None
-        self.svm_controller = SVMController()
+        self.ML_controller = GRUController()
+        # self.ML_controller = DNNController()
         self.legit_src_ips = []
         self.state = State.UNCERTAIN
         self.prec_state = State.UNCERTAIN
         self.most_targeted_ip = None
         self.f = None
-
+        # Check if GPU is available
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        print(f"Using device: {self.device}")
     """
     Loop of DDoSControllerThread implemented using an Async FSM
     """
@@ -74,9 +85,12 @@ class DDoSControllerThread:
                         # Get features
                         features = [self.f.get_ssip(), self.f.get_sdfp(), self.f.get_sdfb(), self.f.get_sfe(),
                                     self.f.get_rfp()]
-
+                        print(features)
+                        f_torch = torch.tensor(features).float().unsqueeze(0).unsqueeze(0).to(self.device)
+                        # print(f_torch)
+                        # print(f_torch.size())
                         # Predict class
-                        self.state = State(self.svm_controller.predict([features]).value)
+                        self.state = State(self.ML_controller.predict(f_torch).value)
 
             elif self.state == State.NORMAL:
                 print("traffic is NORMAL")

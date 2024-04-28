@@ -1,3 +1,11 @@
+'''
+Description: 
+Version: 1.0
+Autor: Ian Yang
+Date: 2024-04-25 23:41:09
+LastEditors: Ian Yang
+LastEditTime: 2024-04-26 15:32:47
+'''
 #!/usr/bin/python3
 from app.training.utils.FeaturesCalculator import FeaturesCalculator
 from app.model.Flow import Flow
@@ -6,13 +14,21 @@ import http
 import json
 import time
 import http.client
+import os
+
+
 
 # Variables
 MAX_SAMPLES = 1000
 SAMPLING_PERIOD = 3
 DPID = "1"
-TARGET_IP = "137.204.10.100"
-f = open('dataset.csv', 'w')
+TARGET_IP = "172.30.211.200"
+check_file = os.path.isfile('dataset.csv')
+if check_file:
+    f = open('dataset.csv', 'a')
+else:
+    f = open('dataset.csv', 'w')
+    f.write("speed_src_ip,std_n_packets,std_bytes,bytes_per_flow,n_int_flows,class\n")
 writer = csv.writer(f)
 API_IP = "localhost"
 API_PORT = "8080"
@@ -63,7 +79,7 @@ def build_dataset():
         conn = http.client.HTTPConnection(API_IP, API_PORT)
         conn.request("GET", "/stats/flow/" + DPID)
         response = conn.getresponse()
-
+        
         # Read response
         if response.status == 200:
             sample_as_json = json.loads(response.read())
@@ -71,12 +87,14 @@ def build_dataset():
             sample_as_json = []
 
         if len(sample_as_json) > 0:
+            # print(sample_as_json)
             # Read sample
             sample = read_sample(sample_as_json)
             # If there are flows based on src ip
             if len(sample) > 0:
                 # Features controller to calculate features from collected flows
                 fc = FeaturesCalculator(sample, TARGET_IP, SAMPLING_PERIOD)
+                
                 # Get features
                 row = []
                 features = fc.get_features().get_features_as_array()
@@ -84,8 +102,10 @@ def build_dataset():
                 for (k, v) in features:
                     row.append(v)
 
+                # Append Benign Class
+                row.append(1)
                 # Append Class
-                row.append(0)
+                # row.append(1)
                 # Write into csv
                 writer.writerow(row)
 
