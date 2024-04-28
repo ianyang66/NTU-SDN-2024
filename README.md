@@ -1,4 +1,4 @@
-# DDoS-SDN
+# NTU SDN 2024
 
 ## DDoS attacks detection and mitigation in a Software-Defined Network.
 
