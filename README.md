@@ -84,3 +84,43 @@ In conclusion, start the application.
 
 
 ### use in new machine
+ubuntu 20.04
+using ryu controller 
+install ryu in 2024
+```
+apt install gcc python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev zlib1g-dev
+```
+```
+python3 -m pip install ryu
+```
+```
+sudo apt install ryu-bin
+```
+```
+pip3 uninstall eventlet
+```
+```
+pip3 install eventlet==0.30.2
+```
+check it work
+```
+sudo ryu-manager ryu.app.simple_switch_13
+```
+install mininet
+```
+git clone https://github.com/mininet/mininet.git
+```
+```
+cd mininet/util/
+```
+```
+sudo ./install.sh
+```
+install done
+using on localhost
+each controller need to execite in different terminal
+open another terminal to execute mininet 
+```
+sudo mn --custom mn_ddos_topology.py --switch ovsk  --controller=remote,ip=127.0.0.1:6653  --controller=remote,ip=127.0.0.1:6633
+```
+remeneber  mininet needs to be run after two controller. if not mininet will not find the controller
