@@ -84,7 +84,7 @@ In conclusion, start the application.
 
 
 ### use in new machine
-ubuntu 20.04
+ubuntu 20.04<br>
 using ryu controller 
 install ryu in 2024
 ```
@@ -116,11 +116,29 @@ cd mininet/util/
 ```
 sudo ./install.sh
 ```
-install done
-using on localhost
-each controller need to execite in different terminal
+install done<br>
+using on localhost<br>
+each controller need to execite in different terminal<br>
 open another terminal to execute mininet 
 ```
 sudo mn --custom mn_ddos_topology.py --switch ovsk  --controller=remote,ip=127.0.0.1:6653  --controller=remote,ip=127.0.0.1:6633
 ```
-remeneber  mininet needs to be run after two controller. if not mininet will not find the controller
+**remeneber**  mininet needs to be run after two controller. if not mininet will not find the controller<br>
+befor runnning the program you need to install hping3
+```
+sudo apt-get install hping3
+```
+i am confuse how to use sudo bash gen_traffic.sh<br>
+because of using in localhost, the ipv4 address of h2 is 10.0.0.2 <br>
+and need to add the method "UDP".<br>
+so the total command will like this
+```
+sudo bash gen_traffic.sh 10.0.0.2 "UDP"
+```
+then i get the response like "Cannot open network namespace "3077": No such file or directory"<br>
+what is that mean <br>
+let's put it aside <br>
+because it's still running <br>
+then i get
+![image](https://github.com/ianyang66/NTU-SDN-2024/assets/106331489/c025dba9-a18b-4fc7-8cf8-316c63c0196e)
+what happened
