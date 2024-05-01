@@ -132,7 +132,7 @@ befor runnning the program you need to install hping3
 sudo apt-get install hping3
 ```
 i am confuse how to use sudo bash gen_traffic.sh<br>
-because of using in localhost, the ipv4 address of h2 is 10.0.0.2 <br>
+the ipv4 address of h2 is 10.0.0.2 <br>
 and need to add the method "UDP".<br>
 so the total command will like this
 ```
