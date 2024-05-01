@@ -13,11 +13,11 @@ class DDoSTopo(Topo):
 
         # Add hosts and connect them to the switch
         for i in range(1, N_HOSTS + 1):
-            h = self.addHost("h" + str(i), ip="172.30.211." + str(i + 1) + "/24") 
+            h = self.addHost("h" + str(i)) 
             self.addLink(h, s0, bw=10, delay="10ms")
            
         # Add target host
-        h_target = self.addHost("h_target", ip=TARGET_IP + "/24")
+        h_target = self.addHost("h_target")
         self.addLink(h_target, s0, bw=10, delay="10ms")
 
 topos = { 'ddostopo': ( lambda: DDoSTopo() ) }
