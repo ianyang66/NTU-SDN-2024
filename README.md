@@ -124,7 +124,7 @@ using on localhost<br>
 each controller need to execute in different terminal at controller file using the code above<br>
 open another terminal to execute mininet 
 ```
-sudo mn --custom mn_ddos_topology.py --switch ovsk  --controller=remote,ip=127.0.0.1:6653  --controller=remote,ip=127.0.0.1:6633
+sudo mn --custom mn_ddos_topology.py --topo ddostopo --switch ovsk  --controller=remote,ip=127.0.0.1:6653  --controller=remote,ip=127.0.0.1:6633 
 ```
 **remeneber**  mininet needs to be run after two controller. if not mininet will not find the controller<br>
 befor runnning the program you need to install hping3
