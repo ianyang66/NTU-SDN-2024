@@ -26,7 +26,7 @@ from a Mininet host.
 
 Then run 
 ```
-python collect_data.py
+python collect_data.py $Target_IP
 ```
 on another terminal to sample the flow to target ip.
 
