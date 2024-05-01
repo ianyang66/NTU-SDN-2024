@@ -15,14 +15,14 @@ import json
 import time
 import http.client
 import os
-
+import sys
 
 
 # Variables
 MAX_SAMPLES = 1000
 SAMPLING_PERIOD = 3
 DPID = "1"
-TARGET_IP = "172.30.211.200"
+TARGET_IP = sys.argv[1]
 check_file = os.path.isfile('dataset.csv')
 if check_file:
     f = open('dataset.csv', 'a')
