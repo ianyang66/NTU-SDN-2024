@@ -106,6 +106,9 @@ check it work
 ```
 sudo ryu-manager ryu.app.simple_switch_13
 ```
+if success, you will see like this<br>
+![image](https://github.com/ianyang66/NTU-SDN-2024/assets/106331489/e8fd6d62-ab2f-49b2-ad39-a0f5e70ddfc1)
+
 install mininet
 ```
 git clone https://github.com/mininet/mininet.git
@@ -118,7 +121,7 @@ sudo ./install.sh
 ```
 install done<br>
 using on localhost<br>
-each controller need to execite in different terminal<br>
+each controller need to execute in different terminal at controller file using the code above<br>
 open another terminal to execute mininet 
 ```
 sudo mn --custom mn_ddos_topology.py --switch ovsk  --controller=remote,ip=127.0.0.1:6653  --controller=remote,ip=127.0.0.1:6633
