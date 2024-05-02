@@ -14,6 +14,7 @@ if [ $# -lt 2 ]; then
 else 
     TARGET_IP="$1"
     FLOOD_TYPE="$2"
+    FILEDR="$3"
     PIDS=$(ps aux | grep "mininet:h" | cut -c5-16 | tail -n+2)
     N_PIDS=$(echo $PIDS | wc -w)
 
@@ -25,7 +26,7 @@ else
     I=1
     while read PID; do
         ln -sf /proc/$PID/ns/net /var/run/netns/$PID
-        ip netns exec $PID bash ./traffic_ddos.sh $TARGET_IP $FLOOD_TYPE &
+        ip netns exec $PID bash $FILEDR $TARGET_IP $FLOOD_TYPE &
         
     done <<< "$PIDS"
     wait
