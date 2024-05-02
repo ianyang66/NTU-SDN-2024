@@ -13,8 +13,9 @@ if [ $# -lt 2 ]; then
     echo "usage bash traffic.sh <target_ip> <flood_type>"
 else 
     TARGET_IP="$1"
-    FLOOD_TYPE="$2"
-    FILEDR="$3"
+    FILEDR="$2"
+    FLOOD_TYPE="$3"
+    
     PIDS=$(ps aux | grep "mininet:h" | cut -c5-16 | tail -n+2)
     N_PIDS=$(echo $PIDS | wc -w)
 
