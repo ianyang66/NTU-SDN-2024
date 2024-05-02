@@ -131,17 +131,9 @@ befor runnning the program you need to install hping3
 ```
 sudo apt-get install hping3
 ```
-i am confuse how to use sudo bash gen_traffic.sh<br>
-the ipv4 address of h2 is 10.0.0.2 <br>
-and need to add the method "UDP".<br>
-so the total command will like this
+run the below code to create the flows
 ```
-sudo bash gen_traffic.sh 10.0.0.2 "UDP"
+udo bash gen_traffic.sh $Target_IP $FILEDIR $FLOOD_TYPE
 ```
-then i get the response like "Cannot open network namespace "3077": No such file or directory"<br>
-what is that mean <br>
-let's put it aside <br>
-because it's still running <br>
-then i get
-![image](https://github.com/ianyang66/NTU-SDN-2024/assets/106331489/c025dba9-a18b-4fc7-8cf8-316c63c0196e)
-what happened
+where $FILEDIR is like ./traffic_ddos.sh or ./traffic_benign.sh<br>
+$FLOOD_TYPE is like UDP ICMP TCP-SYN LAND
