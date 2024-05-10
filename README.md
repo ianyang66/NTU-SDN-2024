@@ -137,3 +137,6 @@ udo bash gen_traffic.sh $Target_IP $FILEDIR $FLOOD_TYPE
 ```
 where $FILEDIR is like ./traffic_ddos.sh or ./traffic_benign.sh<br>
 $FLOOD_TYPE is like UDP ICMP TCP-SYN LAND
+
+the topo will like this 
+![image](https://github.com/ianyang66/NTU-SDN-2024/assets/106331489/92d76266-70ed-49be-a639-6605d5147d7e)
