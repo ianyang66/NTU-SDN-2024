@@ -34,6 +34,9 @@ API_PORT = "8080"
 
 class DDoSControllerThread:
     def __init__(self, queue):
+        # Check if GPU is available
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        print(f"Using device: {self.device}")
         self.queue = queue
         self.features_controller = None
         self.ML_controller = GRUController()
@@ -43,9 +46,6 @@ class DDoSControllerThread:
         self.prec_state = State.UNCERTAIN
         self.most_targeted_ip = None
         self.f = None
-        # Check if GPU is available
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        print(f"Using device: {self.device}")
     """
     Loop of DDoSControllerThread implemented using an Async FSM
     """
