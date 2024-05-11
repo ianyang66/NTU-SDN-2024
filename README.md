@@ -133,7 +133,7 @@ sudo apt-get install hping3
 ```
 run the below code to create the flows
 ```
-udo bash gen_traffic.sh $Target_IP $FILEDIR $FLOOD_TYPE
+sudo bash gen_traffic.sh $Target_IP $FILEDIR $FLOOD_TYPE
 ```
 where $FILEDIR is like ./traffic_ddos.sh or ./traffic_benign.sh<br>
 $FLOOD_TYPE is like UDP ICMP TCP-SYN LAND
