@@ -12,13 +12,14 @@ from app.model.models import DNN, GRUModel
 import torch
 
 class DNNController:
-    def __init__(self):
+    def __init__(self, device):
         self.filename = '../training/classifier/model.pth'
+        self.device = device
         
         
         
     def predict(self,features):
-        model = DNN(5,64,2).to('cuda')
+        model = DNN(5,64,2).to(self.device)
         model.load_state_dict(torch.load(self.filename))
         model.eval()
         with torch.no_grad():
@@ -32,13 +33,13 @@ class DNNController:
 
     
 class GRUController:
-    def __init__(self):
+    def __init__(self, device):
         self.filename = '../training/classifier/model_gru.pth'
-        
+        self.device = device
         
         
     def predict(self,features):
-        model = GRUModel(5,64,2).to('cuda')
+        model = GRUModel(5,64,2).to(self.device)
         model.load_state_dict(torch.load(self.filename))
         model.eval()
         with torch.no_grad():
