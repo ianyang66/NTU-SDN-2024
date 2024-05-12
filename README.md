@@ -141,5 +141,3 @@ $FLOOD_TYPE is like UDP ICMP TCP-SYN LAND
 the topo will like this 
 ![image](https://github.com/ianyang66/NTU-SDN-2024/assets/106331489/92d76266-70ed-49be-a639-6605d5147d7e)
 
-just a note
-![image](https://github.com/ianyang66/NTU-SDN-2024/assets/106331489/45a79fde-df0d-4e22-9537-ceeec6823d50)
