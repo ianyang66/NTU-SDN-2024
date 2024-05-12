@@ -78,10 +78,16 @@ class FeaturesController:
 
         v = list(self.dst_ip_count.values())
         k = list(self.dst_ip_count.keys())
-        self.most_targeted_ip = k[v.index(max(v))]
+        if len(v) > 0:
+            self.most_targeted_ip = k[v.index(max(v))]
+        else:
+            print("stop")
 
     def __ssip(self):
-        return self.dst_ip_count[self.most_targeted_ip] / self.period
+        if self.dst_ip_count:
+            return self.dst_ip_count[self.most_targeted_ip] / self.period
+        else:
+            return 1
 
     def __sdfp(self):
         packet_count = []

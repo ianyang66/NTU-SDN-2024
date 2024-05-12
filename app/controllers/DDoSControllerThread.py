@@ -23,7 +23,7 @@ import torch
 """
 
 SAMPLING_PERIOD = 3
-MITIGATION_PERIOD = 30
+MITIGATION_PERIOD = 9
 DPID = "1"
 HIGH_PRIORITY = 20
 MEDIUM_PRIORITY = 10
@@ -39,8 +39,8 @@ class DDoSControllerThread:
         print(f"Using device: {self.device}")
         self.queue = queue
         self.features_controller = None
-        self.ML_controller = GRUController()
-        # self.ML_controller = DNNController()
+        self.ML_controller = GRUController(device = self.device)
+        # self.ML_controller = DNNController(self.device)
         self.legit_src_ips = []
         self.state = State.UNCERTAIN
         self.prec_state = State.UNCERTAIN
@@ -91,6 +91,7 @@ class DDoSControllerThread:
                         # print(f_torch.size())
                         # Predict class
                         self.state = State(self.ML_controller.predict(f_torch).value)
+                        #self.state = State.NORMAL
 
             elif self.state == State.NORMAL:
                 print("traffic is NORMAL")
@@ -113,6 +114,18 @@ class DDoSControllerThread:
                 print("delete drop flow rule")
                 self.prec_state = self.state
                 self.state = State.UNCERTAIN
+                
+            elif self.state == State.ANOMA:
+                print("traffic is ANOMALOUS")
+                # Update View
+                self.__update_view()
+                # Mitigate attack
+                print("mitigating attack: drop packets with destination IP " + self.most_targeted_ip)
+                self.__mitigate(sample_as_json)
+                time.sleep(MITIGATION_PERIOD)
+                print("delete drop flow rule")
+                self.prec_state = self.state
+                self.state = State.UNCERTAIN        
     
     """
     Delete all flow entries of DPID and add Packet In flow rule

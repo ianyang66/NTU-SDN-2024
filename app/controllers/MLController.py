@@ -10,6 +10,7 @@ import joblib
 from app.model.TrafficState import TrafficState
 from app.model.models import DNN, GRUModel
 import torch
+import os
 
 class DNNController:
     def __init__(self, device):
@@ -34,13 +35,14 @@ class DNNController:
     
 class GRUController:
     def __init__(self, device):
-        self.filename = '../training/classifier/model_gru.pth'
+        self.path = os.path.dirname(__file__)
+        self.filename = self.path + '/model_gru.pth'
         self.device = device
         
         
     def predict(self,features):
-        model = GRUModel(5,64,2).to(self.device)
-        model.load_state_dict(torch.load(self.filename))
+        model = GRUModel(5,64,3).to(self.device)
+        model.load_state_dict(torch.load(self.filename, map_location=self.device))
         model.eval()
         with torch.no_grad():
             output = model(features)
