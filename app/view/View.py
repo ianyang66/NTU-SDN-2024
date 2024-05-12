@@ -6,6 +6,13 @@ Date: 2024-04-25 15:01:22
 LastEditors: Ian Yang
 LastEditTime: 2024-04-28 20:27:07
 '''
+
+import os
+import sys
+sys.path.append(".")
+
+#print(sys.path)
+
 import threading
 import tkinter
 from tkinter import Tk
@@ -17,6 +24,7 @@ from app.controllers.DDoSControllerThread import DDoSControllerThread
 from app.model.Features import Feature
 from app.model.TrafficState import TrafficState
 import matplotlib.dates as mdates
+
 
 class View:
     def __init__(self):
