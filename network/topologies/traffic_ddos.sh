@@ -15,7 +15,8 @@ if [ $# -lt 2 ]
 else 
     TARGET_IP="$1"
     FLOOD_TYPE="$2"
-    while true; do
+    NUM=$(shuf -i 1-3 -n 1)
+    for count in {1..$NUM}; do
         N_PACKETS=$(shuf -i 10-20 -n 1)
         N_BYTES=$(shuf -i 150-200 -n 1)
         PAUSE=$(shuf -i 1-10 -n 1)
